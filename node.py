@@ -33,6 +33,9 @@ class Nodo:
     def showPuntuacionB(self):
         return self.puntuacionB
 
+    def showPuntuacionN(self):
+        return self.puntuacionN
+
     def showPuntos(self):
         return self.puntos
     
