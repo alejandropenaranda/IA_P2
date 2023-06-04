@@ -1,29 +1,7 @@
 from node import Nodo
 import numpy as np
+import random
 
-# Aqui se abre el archivo de texto que contiene el mapa y se guarda en la variable mapa en forma de matriz
-
-# def crear_mapa_desde_archivo(nombre_archivo):
-#     matriz = []
-#     with open(nombre_archivo, 'r') as archivo:
-#         lineas = archivo.readlines()
-#         for linea in lineas:
-#             valores = linea.strip().split()  # Separar los valores por espacio en blanco
-#             fila = [valor for valor in valores]  # No es necesario convertirlos a tipo float en este caso
-#             matriz.append(fila)
-#     return matriz
-
-def crear_mapa_desde_archivo(nombre_archivo):
-    with open(nombre_archivo) as archivo:
-        filas = archivo.readlines()
-        mapa = []
-        for fila in filas:
-            mapa.append([x for x in fila.split()])
-        archivo.close()
-        return np.array(mapa)
-
-mapa = crear_mapa_desde_archivo('Prueba1.txt')
-#print(mapa)
 # #__________________________________________definicion de variables globales
 nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[])
 
@@ -34,10 +12,10 @@ def find_initial_positions(board):
     caballoN = None
     for i in range(len(board)):
         for h in range(len(board)):
-            if mapa[i][h] == "B":
+            if mapa[i][h] == 9:
                 caballoB = [i,h]
                 mapa[i][h]=0
-            elif mapa[i][h] == "N":
+            elif mapa[i][h] == 8:
                 caballoN = [i,h]
                 mapa[i][h]=0
             elif int(mapa[i][h]) != 0:
@@ -440,6 +418,44 @@ def puede_moverseN(nodo):
     print("casillas posibles",coordenadas)
     return nodos_posibles
 
+def randomize_board(size):
+    global puntos
+    puntos = []
+    global caballoBlanco
+    caballoBlanco = []
+    global caballoNegro
+    caballoNegro = []
+
+    num_tuples = 9
+    tuples = set() #conjunto para que no se repitan los valores
+    # mientras no se tengan todas las posiciones se recalcula
+    while len(puntos) + len(caballoBlanco) + len(caballoNegro) < num_tuples:
+        new_tuple = tuple(random.randint(0, size-1) for _ in range(2))
+        if new_tuple not in tuples:
+            tuples.add(new_tuple)
+            if len(puntos) != 7:
+                puntos.append(new_tuple)
+            elif len(caballoBlanco) != 1:
+                caballoBlanco.append(new_tuple)
+            elif len(caballoNegro) != 1:
+                caballoNegro.append(new_tuple)
+    print(puntos,caballoBlanco,caballoNegro)
+
+def asignar_coordenadas():
+    aux = 1
+    for punto in puntos:
+        row = punto[0]
+        cell = punto[1]
+        mapa[row][cell] = aux
+        aux = aux + 1
+    mapa[caballoNegro[0][0]][caballoNegro[0][1]] = 8
+    mapa[caballoBlanco[0][0]][caballoBlanco[0][1]] = 9
+
+mapa = np.zeros((8,8))
+mapa.astype(str)
+randomize_board(8)
+asignar_coordenadas()
+print("este es el mapa",mapa)
 find_initial_positions(mapa)
 
 puede_moverseB(nodo_raiz)
