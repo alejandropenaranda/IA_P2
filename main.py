@@ -3,7 +3,7 @@ import numpy as np
 import random
 
 # #__________________________________________definicion de variables globales
-nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[])
+nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[], tipo="MAX")
 
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero
 def find_initial_positions(board):
@@ -64,7 +64,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba derecha superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba derecha superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -73,7 +73,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba derecha superior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba derecha superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -88,7 +88,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba izquierda superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba izquierda superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -97,7 +97,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba izquierda superior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba izquierda superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -112,7 +112,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba derecha inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba derecha inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -121,7 +121,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba derecha inferior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba derecha inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -136,7 +136,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba izquierda inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="arriba izquierda inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -145,7 +145,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba izquierda inferior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="arriba izquierda inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -160,7 +160,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo derecha superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo derecha superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -169,7 +169,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo derecha superior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo derecha superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -184,7 +184,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo izquierda superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo izquierda superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -193,7 +193,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo izquierda superior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo izquierda superior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -208,7 +208,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo derecha inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo derecha inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -217,7 +217,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo derecha inferior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo derecha inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -232,7 +232,7 @@ def puede_moverseB(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo izquierda inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=nodo.puntos, padre=nodo, operador="abajo izquierda inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -241,7 +241,7 @@ def puede_moverseB(nodo):
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoN()[0],nodo.showCaballoN()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionB = verificar_puntuacionB(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo izquierda inferior")
+            nodo_aux = Nodo(puntuacionB = puntuacionB, puntuacionN=nodo.puntuacionN, caballoB = [fila_nueva,columna_nueva], caballoN=nodo.caballoN, puntos=puntos, padre=nodo, operador="abajo izquierda inferior",tipo="MIN")
             nodo_verificado = evitar_devolverce(nodo_aux,nodos_recorridos)
             #print(mapa[fila_nueva,columna_nueva])
             if nodo_verificado != None:
@@ -272,13 +272,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba derecha superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba derecha superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba derecha superior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba derecha superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     #-------------------------
@@ -290,13 +290,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba izquierda superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba izquierda superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba izquierda superior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba izquierda superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     #-------------------------
@@ -308,13 +308,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba derecha inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba derecha inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba derecha inferior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba derecha inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     #-------------------------
@@ -326,13 +326,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba izquierda inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="arriba izquierda inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba izquierda inferior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="arriba izquierda inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     #-------------------------
@@ -344,13 +344,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo derecha superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo derecha superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo derecha superior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo derecha superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     #-------------------------
@@ -362,13 +362,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo izquierda superior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo izquierda superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo izquierda superior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo izquierda superior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     #-------------------------
@@ -380,13 +380,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo derecha inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo derecha inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo derecha inferior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo derecha inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     #-------------------------
@@ -398,13 +398,13 @@ def puede_moverseN(nodo):
         #Si es una casilla vacia
         if [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) == 0:
             #print(nodo.showPuntos())
-            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo izquierda inferior")
+            nodo_aux = Nodo(nodo.puntuacionB, nodo.puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=nodo.puntos, padre=nodo, operador="abajo izquierda inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
         #Si es una casilla con puntuacion
         elif [fila_nueva,columna_nueva] != [nodo.showCaballoB()[0],nodo.showCaballoB()[1]] and int(mapa[fila_nueva][columna_nueva]) != 0: 
             #print(nodo.showPuntos())
             puntos, puntuacionN = verificar_puntuacionN(nodo, fila_nueva, columna_nueva)
-            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo izquierda inferior")
+            nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo izquierda inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
     print("FINAL NEGRO")
