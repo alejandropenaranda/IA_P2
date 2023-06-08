@@ -5,6 +5,8 @@ import random
 # #__________________________________________definicion de variables globales
 nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[], tipo="MAX")
 
+ganador=None
+
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero
 def find_initial_positions(board):
     puntos = []
@@ -450,6 +452,16 @@ def asignar_coordenadas():
         aux = aux + 1
     mapa[caballoNegro[0][0]][caballoNegro[0][1]] = 8
     mapa[caballoBlanco[0][0]][caballoBlanco[0][1]] = 9
+
+def verificarGanador(nodo):
+    global ganador
+    if(nodo.esMeta()):
+        if(nodo.showPuntuacionB()>nodo.showPuntuacionN()):
+            ganador ="Blanco"
+        elif(nodo.showPuntuacionB()<nodo.showPuntuacionN()):
+            ganador="Negro"
+        else:
+            ganador="Empate"
 
 mapa = np.zeros((8,8))
 mapa.astype(str)
