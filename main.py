@@ -4,8 +4,10 @@ import random
 
 # #__________________________________________definicion de variables globales
 nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[], tipo="MAX")
-
+arbol=[]
 ganador=None
+global dificultad
+dificultad = "principiante"
 
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero
 def find_initial_positions(board):
@@ -249,15 +251,15 @@ def puede_moverseB(nodo):
             if nodo_verificado != None:
                 nodos_posibles.append(nodo_verificado)
 
-    print("FINAL BLANCO")
-    print("nodos",nodos_posibles)
-    print("Puntos",nodos_posibles[0].showPuntos())
-    print("CaballoBlanco",nodos_posibles[0].showCaballoB())
-    print("PuntuacionBlanco",nodos_posibles[0].showPuntuacionB())
-    coordenadas=[]
-    for i in nodos_posibles:
-        coordenadas.append(i.showCaballoB())
-    print("casillas posibles",coordenadas)
+    # print("FINAL BLANCO")
+    # print("nodos",nodos_posibles)
+    # print("Puntos",nodos_posibles[0].showPuntos())
+    # print("CaballoBlanco",nodos_posibles[0].showCaballoB())
+    # print("PuntuacionBlanco",nodos_posibles[0].showPuntuacionB())
+    # coordenadas=[]
+    # for i in nodos_posibles:
+    #     coordenadas.append(i.showCaballoB())
+    # print("casillas posibles",coordenadas)
     return nodos_posibles
             
 def puede_moverseN(nodo):
@@ -409,16 +411,67 @@ def puede_moverseN(nodo):
             nodo_aux = Nodo(puntuacionB = nodo.puntuacionB, puntuacionN=puntuacionN, caballoB = nodo.caballoB, caballoN=[fila_nueva,columna_nueva], puntos=puntos, padre=nodo, operador="abajo izquierda inferior",tipo="MAX")
             nodos_posibles.append(nodo_aux)
 
-    print("FINAL NEGRO")
-    print("nodos",nodos_posibles)
-    print("Puntos",nodos_posibles[0].showPuntos())
-    print("CaballoNegro",nodos_posibles[0].showCaballoN())
-    print("PuntuacionNegro",nodos_posibles[0].showPuntuacionN())
-    coordenadas=[]
-    for i in nodos_posibles:
-        coordenadas.append(i.showCaballoN())
-    print("casillas posibles",coordenadas)
+    # print("FINAL NEGRO")
+    # print("nodos",nodos_posibles)
+    # print("Puntos",nodos_posibles[0].showPuntos())
+    # print("CaballoNegro",nodos_posibles[0].showCaballoN())
+    # print("PuntuacionNegro",nodos_posibles[0].showPuntuacionN())
+    # coordenadas=[]
+    # for i in nodos_posibles:
+    #     coordenadas.append(i.showCaballoN())
+    # print("casillas posibles",coordenadas)
     return nodos_posibles
+
+def verFuturo(dificultad, nodoRaiz):
+    nodoRaiz.padre = None
+    profundidad = 0
+
+    arbol.append(nodoRaiz)
+
+    if dificultad == "principiante":
+        profundidad = 2
+    elif dificultad == "amateur":
+        profundidad = 4
+    elif dificultad == "experto":
+        profundidad = 6
+    
+    expandirNodos(profundidad,[nodoRaiz])
+    nodosFiltrados=filtrarNodos(profundidad)
+    arbol.clear()
+    nodo_maxima_utilidad(nodosFiltrados)
+
+
+def expandirNodos(profundidad, nodos):
+    nuevosNodos=None
+    while(profundidad>0):
+        if profundidad%2==0:
+            for i in nodos:
+                profundidad=profundidad-1
+                nuevosNodos = puede_moverseB(i)
+                arbol.extend(nuevosNodos)
+        elif profundidad%2!=0:
+            for i in nodos:
+                profundidad=profundidad-1
+                nuevosNodos = puede_moverseN(i)
+                arbol.extend(nuevosNodos)
+        expandirNodos(profundidad, nuevosNodos)
+    print("arbol:",arbol)
+    coordenadasB=[]
+    coordenadasN=[]
+    for i in arbol:
+        coordenadasB.append(i.showCaballoB())
+        coordenadasN.append(i.showCaballoN())
+    print("CaballoBlanco:",coordenadasB)
+    print("CaballoNegro:",coordenadasN)
+
+def filtrarNodos(profundidad):
+    nodos=[]
+    for i in arbol:
+        if i.esMeta() or i.showProfundidad()==profundidad:
+            nodos.append(i)
+            #print("Profundidad:",i.showProfundidad())
+    print("Nodos",nodos)
+    return nodos
 
 # esta funcion recibe un arreglo con los nodos de maxima profundidad por turno y nodos meta y retorna aquel que tenga una mayor funcion de utilidad
 def nodo_maxima_utilidad(nodos):
@@ -428,6 +481,8 @@ def nodo_maxima_utilidad(nodos):
         if nodos[i].funcionUtilidad() > mayor:
             index = i
             mayor = nodos[i].funcionUtilidad()
+    print("Nodo de mayor Utilidad:",nodos[index])
+    print("Utilidad:",nodos[index].showUtilidad())
     return nodos[index]
 
 def randomize_board(size):
@@ -480,5 +535,6 @@ asignar_coordenadas()
 print("este es el mapa",mapa)
 find_initial_positions(mapa)
 
-puede_moverseB(nodo_raiz)
-puede_moverseN(nodo_raiz)
+verFuturo(dificultad, nodo_raiz)
+#puede_moverseB(nodo_raiz)
+#puede_moverseN(nodo_raiz)
