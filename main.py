@@ -420,6 +420,16 @@ def puede_moverseN(nodo):
     print("casillas posibles",coordenadas)
     return nodos_posibles
 
+# esta funcion recibe un arreglo con los nodos de maxima profundidad por turno y nodos meta y retorna aquel que tenga una mayor funcion de utilidad
+def nodo_maxima_utilidad(nodos):
+    mayor = nodos[0].funcionUtilidad()
+    index = 0
+    for i in range(len(nodos)):
+        if nodos[i].funcionUtilidad() > mayor:
+            index = i
+            mayor = nodos[i].funcionUtilidad()
+    return nodos[index]
+
 def randomize_board(size):
     global puntos
     puntos = []

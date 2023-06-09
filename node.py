@@ -8,6 +8,7 @@ class Nodo:
         self.operador = operador # operador utilizado para que goku llegara a esta posicion
         self.caballoB = caballoB # posicion actual del goku
         self.caballoN = caballoN # posicion actual del goku
+        self.utilidad = 0
         if padre is None:
             self.profundidad = 0
         else:
@@ -52,6 +53,13 @@ class Nodo:
     
     def showProfundidad(self):
         return self.profundidad
+    
+    def showUtilidad(self):
+        return self.utilidad
+    
+    def funcionUtilidad(self):
+        self.utilidad = self.puntuacionB - self.puntuacionN
+        return self.showUtilidad()
     
     #Funcion que revisa si hay nodos iguales en una lista de nodos
     def nodo_validoB(self, lista_nodos):
