@@ -7,7 +7,7 @@ nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[]
 arbol=[]
 ganador=None
 global dificultad
-dificultad = "principiante"
+dificultad = "amateur"
 
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero
 def find_initial_positions(board):
@@ -436,9 +436,18 @@ def verFuturo(dificultad, nodoRaiz):
         profundidad = 6
     
     expandirNodos(profundidad,[nodoRaiz])
+    print("arbol:",arbol)
+    coordenadasB=[]
+    coordenadasN=[]
+    for i in arbol:
+        coordenadasB.append(i.showCaballoB())
+        coordenadasN.append(i.showCaballoN())
+    print("CaballoBlanco:",coordenadasB)
+    print("CaballoNegro:",coordenadasN)
     nodosFiltrados=filtrarNodos(profundidad)
     arbol.clear()
-    nodo_maxima_utilidad(nodosFiltrados)
+    nodoSolucion=nodo_maxima_utilidad(nodosFiltrados)
+    movimientoBlanco(nodoSolucion)
 
 
 def expandirNodos(profundidad, nodos):
@@ -452,18 +461,10 @@ def expandirNodos(profundidad, nodos):
         elif profundidad%2!=0:
             profundidad=profundidad-1
             for i in nodos:
-
                 nuevosNodos = puede_moverseN(i)
                 arbol.extend(nuevosNodos)
         expandirNodos(profundidad, nuevosNodos)
-    print("arbol:",arbol)
-    coordenadasB=[]
-    coordenadasN=[]
-    for i in arbol:
-        coordenadasB.append(i.showCaballoB())
-        coordenadasN.append(i.showCaballoN())
-    print("CaballoBlanco:",coordenadasB)
-    print("CaballoNegro:",coordenadasN)
+
 
 def filtrarNodos(profundidad):
     nodos=[]
@@ -485,6 +486,30 @@ def nodo_maxima_utilidad(nodos):
     print("Nodo de mayor Utilidad:",nodos[index])
     print("Utilidad:",nodos[index].showUtilidad())
     return nodos[index]
+
+def movimientoBlanco(nodo):
+    global nodosPosibles
+    global casillaB
+    #caballoB = nodo.recorrer_arbol_arriba()
+    # camino=[]
+    # for i in caballoB:
+    #     camino.append(i.showCaballoB())
+    # print("caminoB:",camino)
+    nodoaux = nodo.recorrer_arbol_arriba().pop(-2)
+    print("CASILLA:",nodoaux.showCaballoB())
+    casillaB = nodoaux.showCaballoB()
+
+    nodosN=puede_moverseN(nodoaux)
+    coordenadas=[]
+    for i in nodosN:
+        coordenadas.append(i.showCaballoN())
+
+    nodosPosibles = coordenadas
+    print("PosibleCaballoNegro:",coordenadas)
+    
+
+
+
 
 def randomize_board(size):
     global puntos

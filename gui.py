@@ -1,7 +1,7 @@
 import pygame , sys
 from pygame.locals import *
 import math
-from main import (mapa,nodo_raiz,puntos)
+from main import (mapa,nodo_raiz,puntos,casillaB,nodosPosibles)
 pygame.font.init()
 
 #se crea el tablero, nota si se actualiza el tablero se debe de referenciar otra vez ya que no esta en el while del refresco
@@ -106,6 +106,9 @@ def pintar_juego(nodo):
 
     screen.blit(blackHorse, ((caballoN[1]*imgsize),(caballoN[0]*imgsize)))
     screen.blit(whiteHorse, ((caballoB[1]*imgsize),(caballoB[0]*imgsize)))
+
+#def pintar_casillas_posibles():
+
 #____________________________________________________________________________________________________________
 #------------
 
