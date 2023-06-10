@@ -445,13 +445,14 @@ def expandirNodos(profundidad, nodos):
     nuevosNodos=None
     while(profundidad>0):
         if profundidad%2==0:
+            profundidad=profundidad-1
             for i in nodos:
-                profundidad=profundidad-1
                 nuevosNodos = puede_moverseB(i)
                 arbol.extend(nuevosNodos)
         elif profundidad%2!=0:
+            profundidad=profundidad-1
             for i in nodos:
-                profundidad=profundidad-1
+
                 nuevosNodos = puede_moverseN(i)
                 arbol.extend(nuevosNodos)
         expandirNodos(profundidad, nuevosNodos)
