@@ -436,43 +436,46 @@ def verFuturo(dificultad, nodoRaiz):
         profundidad = 6
     
     expandirNodos(profundidad,[nodoRaiz])
-    print("arbol:",arbol)
-    coordenadasB=[]
-    coordenadasN=[]
-    for i in arbol:
-        coordenadasB.append(i.showCaballoB())
-        coordenadasN.append(i.showCaballoN())
-    print("CaballoBlanco:",coordenadasB)
-    print("CaballoNegro:",coordenadasN)
+    #print("arbol:",arbol)
+    # coordenadasB=[]
+    # coordenadasN=[]
+    # for i in arbol:
+    #     coordenadasB.append(i.showCaballoB())
+    #     coordenadasN.append(i.showCaballoN())
+    # print("CaballoBlanco:",coordenadasB)
+    # print("CaballoNegro:",coordenadasN)
     nodosFiltrados=filtrarNodos(profundidad)
     arbol.clear()
     nodoSolucion=nodo_maxima_utilidad(nodosFiltrados)
     movimientoBlanco(nodoSolucion)
 
-
 def expandirNodos(profundidad, nodos):
-    nuevosNodos=None
-    while(profundidad>0):
-        if profundidad%2==0:
-            profundidad=profundidad-1
-            for i in nodos:
-                nuevosNodos = puede_moverseB(i)
-                arbol.extend(nuevosNodos)
-        elif profundidad%2!=0:
-            profundidad=profundidad-1
-            for i in nodos:
-                nuevosNodos = puede_moverseN(i)
-                arbol.extend(nuevosNodos)
-        expandirNodos(profundidad, nuevosNodos)
+    if profundidad == 0:
+        return nodos
 
+    nuevosNodos = []
+    for nodo in nodos:
+        if profundidad % 2 == 0:
+            movimientos = puede_moverseB(nodo)
+        else:
+            movimientos = puede_moverseN(nodo)
+        nuevosNodos.extend(movimientos)
+        arbol.extend(nuevosNodos)
+    return expandirNodos(profundidad - 1, nuevosNodos)
 
 def filtrarNodos(profundidad):
     nodos=[]
     for i in arbol:
         if i.esMeta() or i.showProfundidad()==profundidad:
+            #print("PROFUNDIDAD:",profundidad)
+            i.utilidad = i.funcionUtilidad()
+            #print("Utilidad de los Nodos hoja:",i.utilidad)
             nodos.append(i)
+            camino=i.verCamino()
+            #print("Camino:",camino)
+
             #print("Profundidad:",i.showProfundidad())
-    print("Nodos",nodos)
+    #print("Nodos",nodos)
     return nodos
 
 # esta funcion recibe un arreglo con los nodos de maxima profundidad por turno y nodos meta y retorna aquel que tenga una mayor funcion de utilidad

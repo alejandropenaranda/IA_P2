@@ -22,6 +22,25 @@ class Nodo:
         if self.padre is not None:
             self.padre.recorrer_arbol_arriba(nodos_recorridos)
         return nodos_recorridos
+
+    def verCamino(self):
+        nodos = self.recorrer_arbol_arriba()
+        caminoB=[]
+        caminoN=[]
+        for i in nodos:
+            if i.showTipo()=="MAX":
+                posicion1=i.showCaballoB()
+                posicion2=i.showCaballoN()
+                caminoB.append(posicion1)
+                caminoN.append(posicion2)
+            elif i.showTipo()=="MIN":
+                posicion1=i.showCaballoB()
+                posicion2=i.showCaballoN()
+                caminoB.append(posicion1)
+                caminoN.append(posicion2)
+        caminoB.reverse()
+        caminoN.reverse()
+        return caminoB, caminoN
     
     #Verificar si el nodo actual llego a la meta
     def esMeta(self):
