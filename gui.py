@@ -55,7 +55,7 @@ m = 8
 #____________________________________________________________________________________________________________
 def iniciarGUI(nodo):
     #se inicia la aplicacion
-    
+    print("GUI:",hijoMax,movimientoNegro)
     pygame.init()
 
     #Configuracion para el texto
