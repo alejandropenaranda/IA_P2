@@ -424,9 +424,10 @@ def puede_moverseN(nodo):
     return nodos_posibles
 
 def verFuturo(dificultad, nodoRaiz):
-    global hijoMax, movimientoNegro
+    global movimientoBlanco, movimientoNegro
+    movimientoBlanco = None
     hijoMax = None
-    movimientoNegro = None
+    movimientoNegro = []
     nodoRaiz.padre = None
     profundidad = 0
 
@@ -462,10 +463,12 @@ def verFuturo(dificultad, nodoRaiz):
             hijoMax=hijos[i]
     print("ValorHijoMax:",valorHijoMax)
     print("HijoMax:",hijoMax)
-    print("Movimiento:",hijoMax.showCaballoB())
-    movimientoNegro=puede_moverseN(hijoMax)
+    movimientoBlanco=hijoMax.showCaballoB()
+    print("movimiento B:",movimientoBlanco)
+    nodosNegro=puede_moverseN(hijoMax)
+    for i in nodosNegro:
+        movimientoNegro.append(i.showCaballoN())
     print("movimientos posibles N:",movimientoNegro)
-    return hijoMax, movimientoNegro
 
 
     
