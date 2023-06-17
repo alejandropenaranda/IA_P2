@@ -458,8 +458,9 @@ def verFuturo(dificultad, nodoRaiz):
             hijoMax=hijos[i]
     print("ValorHijoMax:",valorHijoMax)
     print("HijoMax:",hijoMax)
-    movimientoBlanco=puede_moverseN(hijoMax)
-    return hijoMax, movimientoBlanco
+    movimientoNegro=puede_moverseN(hijoMax)
+    print("movimientos posibles N:",movimientoNegro)
+    return hijoMax, movimientoNegro
 
 
     
