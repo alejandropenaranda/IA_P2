@@ -435,7 +435,36 @@ def verFuturo(dificultad, nodoRaiz):
     elif dificultad == "experto":
         profundidad = 6
     
-    expandirNodos(profundidad,[nodoRaiz])
+    nodos=expandirNodos(profundidad,[nodoRaiz])
+    print("CaballoB Raiz:",nodos[0].recorrer_arbol_arriba()[-1].showCaballoB())
+    print("CaballoN Raiz:",nodos[0].recorrer_arbol_arriba()[-1].showCaballoN())
+    print("Utilidad Raiz:",nodos[0].recorrer_arbol_arriba()[-1].calcular_utilidad())
+    arrayB=[]
+    arrayN=[]
+    utilidades=[]
+    hijos=nodos[0].recorrer_arbol_arriba()[-1].showHijos()
+    valorHijoMax=nodos[0].recorrer_arbol_arriba()[-1].showHijos()[0].showUtilidad()
+    hijoMax=nodos[0].recorrer_arbol_arriba()[-1].showHijos()[0]
+    for i in nodos[0].recorrer_arbol_arriba()[-1].showHijos():
+        arrayB.append(i.showCaballoB())
+        arrayN.append(i.showCaballoN())
+        utilidades.append(i.showUtilidad())
+    print("posiblesB",arrayB)
+    print("posiblesN",arrayN)
+    print("Utilidades",utilidades)
+    for i in range(len(hijos)):
+        if hijos[i].showUtilidad()>valorHijoMax:
+            valorHijoMax=hijos[i].showUtilidad()
+            hijoMax=hijos[i]
+    print("ValorHijoMax:",valorHijoMax)
+    print("HijoMax:",hijoMax)
+    return hijoMax
+
+
+    
+    #print("ALV:",nodos[0].padre.padre.calcular_utilidad())    
+    #a=arbol[0].calcular_utilidad()
+    #print("Utilidad Raiz:",a)
     #print("arbol:",arbol)
     # coordenadasB=[]
     # coordenadasN=[]
@@ -444,8 +473,8 @@ def verFuturo(dificultad, nodoRaiz):
     #     coordenadasN.append(i.showCaballoN())
     # print("CaballoBlanco:",coordenadasB)
     # print("CaballoNegro:",coordenadasN)
-    filtrarNodos(profundidad)
-    arbol.clear()
+    #filtrarNodos(profundidad)
+    #arbol.clear()
     #nodoSolucion=nodo_maxima_utilidad(nodosFiltrados)
     #movimientoBlanco(nodoSolucion)
 
@@ -459,24 +488,33 @@ def expandirNodos(profundidad, nodos):
             movimientos = puede_moverseB(nodo)
         else:
             movimientos = puede_moverseN(nodo)
-        nodo.agregar_hijos(movimientos)
+        if profundidad==1 or nodo.esMeta():
+            print("hola")
+            nodo.utilidad = nodo.funcionUtilidad()
+            print("UTILIDAD:",nodo.showUtilidad())
+        for i in movimientos:
+            nodo.agregar_hijo(i)
+            #print("CaballoB:",i.showCaballoB())
+            #print("CaballoN:",i.showCaballoN())
         print("----")
         nuevosNodos.extend(movimientos)
         arbol.extend(movimientos)
     return expandirNodos(profundidad - 1, nuevosNodos)
 
+
+
 def filtrarNodos(profundidad):
-    nodos=[]
+    #nodos=[]
     for i in arbol:
         if i.esMeta() or i.showProfundidad()==profundidad:
             #print("PROFUNDIDAD:",profundidad)
             i.utilidad = i.funcionUtilidad()
             #print("Utilidad de los Nodos hoja:",i.utilidad)
-            nodos.append(i)
+            #nodos.append(i)
             i.subirUtilidad()
             # camino=i.verCamino()
             # print("Camino:",camino)
-            print("Profundidad:",i.showProfundidad())
+            #print("Profundidad:",i.showProfundidad())
     #print("Nodos",nodos)
     # for i in nodos:
     #     utilidad=i.showUtilidad()

@@ -1,7 +1,7 @@
 import pygame , sys
 from pygame.locals import *
 import math
-from main import (mapa,nodo_raiz,filtrarNodos)
+from main import (mapa,nodo_raiz,verFuturo)
 pygame.font.init()
 
 #se crea el tablero, nota si se actualiza el tablero se debe de referenciar otra vez ya que no esta en el while del refresco

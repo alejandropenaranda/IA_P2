@@ -8,7 +8,7 @@ class Nodo:
         self.operador = operador # operador utilizado para que goku llegara a esta posicion
         self.caballoB = caballoB # posicion actual del goku
         self.caballoN = caballoN # posicion actual del goku
-        self.utilidad = 0
+        self.utilidad = None
         self.eleccion = None
         self.revisado = revisado
         self.hijos = []
@@ -17,7 +17,30 @@ class Nodo:
         else:
             self.profundidad = padre.profundidad + 1
 
-    def agregar_hijos(self, hijos):
+    def calcular_utilidad(self):
+        if not self.hijos:  # Nodo de última profundidad
+            return self.utilidad
+        else:
+            utilidades_hijos = [hijo.calcular_utilidad() for hijo in self.hijos]
+            utilidades_validas = [utilidad for utilidad in utilidades_hijos if utilidad is not None]
+            if utilidades_validas:
+                if self.profundidad % 2 == 0:  # Profundidad par
+                    self.utilidad = max(utilidades_validas)
+                else:  # Profundidad impar
+                    self.utilidad = min(utilidades_validas)
+            return self.utilidad
+
+    def cosa(self):
+        nodos=self.recorrer_arbol_arriba()
+        a=nodos.pop(-1)
+        a.calcular_utilidad()
+        print("Utilidad Raiz:",a)
+
+    def agregar_hijo(self, hijo):
+        self.hijos.append(hijo)
+        hijo.padre = self
+
+    def agregar_hijos(self, hijos): 
         self.hijos.extend(hijos)
         caminoB=[]
         caminoN=[]
@@ -31,7 +54,7 @@ class Nodo:
         nodos=self.recorrer_arbol_arriba()
         #nodos.reverse()
         a=nodos[0].showUtilidad()
-        print("UTILIDAD NODO TERMINAL:",a)
+        #print("UTILIDAD NODO TERMINAL:",a)
 
         for i in nodos:
             if i.padre == None:
