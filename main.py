@@ -458,7 +458,8 @@ def verFuturo(dificultad, nodoRaiz):
             hijoMax=hijos[i]
     print("ValorHijoMax:",valorHijoMax)
     print("HijoMax:",hijoMax)
-    return hijoMax
+    movimientoBlanco=puede_moverseN(hijoMax)
+    return hijoMax, movimientoBlanco
 
 
     
@@ -534,30 +535,6 @@ def nodo_maxima_utilidad(nodos):
     print("Nodo de mayor Utilidad:",nodos[index])
     print("Utilidad:",nodos[index].showUtilidad())
     return nodos[index]
-
-def movimientoBlanco(nodo):
-    global nodosPosibles
-    global casillaB
-    #caballoB = nodo.recorrer_arbol_arriba()
-    # camino=[]
-    # for i in caballoB:
-    #     camino.append(i.showCaballoB())
-    # print("caminoB:",camino)
-    nodoaux = nodo.recorrer_arbol_arriba().pop(-2)
-    print("CASILLA:",nodoaux.showCaballoB())
-    casillaB = nodoaux.showCaballoB()
-
-    nodosN=puede_moverseN(nodoaux)
-    coordenadas=[]
-    for i in nodosN:
-        coordenadas.append(i.showCaballoN())
-
-    nodosPosibles = coordenadas
-    print("PosibleCaballoNegro:",coordenadas)
-    
-
-
-
 
 def randomize_board(size):
     global puntos
