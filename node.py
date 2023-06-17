@@ -1,5 +1,5 @@
 class Nodo:
-    def __init__(self,puntuacionB,puntuacionN,caballoB, caballoN, puntos,padre=None,operador=None,tipo=None):
+    def __init__(self,puntuacionB,puntuacionN,caballoB, caballoN, puntos,padre=None,operador=None,tipo=None,revisado=False):
         self.puntuacionB = puntuacionB
         self.puntuacionN = puntuacionN
         self.tipo = tipo
@@ -9,10 +9,53 @@ class Nodo:
         self.caballoB = caballoB # posicion actual del goku
         self.caballoN = caballoN # posicion actual del goku
         self.utilidad = 0
+        self.eleccion = None
+        self.revisado = revisado
+        self.hijos = []
         if padre is None:
             self.profundidad = 0
         else:
             self.profundidad = padre.profundidad + 1
+
+    def agregar_hijos(self, hijos):
+        self.hijos.extend(hijos)
+        caminoB=[]
+        caminoN=[]
+        for i in self.showHijos():
+            caminoB.append(i.showCaballoB())
+            caminoN.append(i.showCaballoN())
+        print("Hijos con B",caminoB)
+        print("Hijos con N",caminoN)
+
+    def subirUtilidad(self):
+        nodos=self.recorrer_arbol_arriba()
+        #nodos.reverse()
+        a=nodos[0].showUtilidad()
+        print("UTILIDAD NODO TERMINAL:",a)
+
+        for i in nodos:
+            if i.padre == None:
+                pass
+            elif i.padre.showRevisado()==False:
+                i.padre.utilidad = i.showUtilidad()
+                i.padre.eleccion = i
+                # print("Utilidad Padre:",i.padre.utilidad)
+                # print("Revisado:",i.padre.revisado)
+                # print("---")
+                i.padre.revisado = True
+            elif i.padre.showRevisado()==True and i.padre.showTipo()=="MIN":
+                #i.padre.utilidad = min(i.padre.utilidad,i.showUtilidad())
+                if i.padre.utilidad>i.showUtilidad():
+                    i.padre.utilidad = i.showUtilidad()
+                    i.padre.eleccion = i
+                #print("Utilidad Padre:",i.padre.utilidad)
+            elif i.padre.showRevisado()==True and i.padre.showTipo()=="MAX":
+                #i.padre.utilidad = max(i.padre.utilidad,i.showUtilidad())
+                if i.padre.utilidad<i.showUtilidad():
+                    i.padre.utilidad = i.showUtilidad()
+                    i.padre.eleccion = i
+
+
 
     # Recorre el arbol desde el nodo actual hasta su padre y luego hacia la raíz.
     def recorrer_arbol_arriba(self, nodos_recorridos=None):
@@ -47,7 +90,10 @@ class Nodo:
         if len(self.puntos) == 0:
             return True
         else:
-            return False    
+            return False
+
+    def showHijos(self):
+        return self.hijos   
     
     def showPuntuacionB(self):
         return self.puntuacionB
@@ -57,6 +103,12 @@ class Nodo:
 
     def showTipo(self):
         return self.tipo
+
+    def showRevisado(self):
+        return self.revisado
+
+    def showEleccion(self):
+        return self.eleccion
 
     def showPuntos(self):
         return self.puntos

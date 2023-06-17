@@ -444,10 +444,10 @@ def verFuturo(dificultad, nodoRaiz):
     #     coordenadasN.append(i.showCaballoN())
     # print("CaballoBlanco:",coordenadasB)
     # print("CaballoNegro:",coordenadasN)
-    nodosFiltrados=filtrarNodos(profundidad)
+    filtrarNodos(profundidad)
     arbol.clear()
-    nodoSolucion=nodo_maxima_utilidad(nodosFiltrados)
-    movimientoBlanco(nodoSolucion)
+    #nodoSolucion=nodo_maxima_utilidad(nodosFiltrados)
+    #movimientoBlanco(nodoSolucion)
 
 def expandirNodos(profundidad, nodos):
     if profundidad == 0:
@@ -459,8 +459,10 @@ def expandirNodos(profundidad, nodos):
             movimientos = puede_moverseB(nodo)
         else:
             movimientos = puede_moverseN(nodo)
+        nodo.agregar_hijos(movimientos)
+        print("----")
         nuevosNodos.extend(movimientos)
-        arbol.extend(nuevosNodos)
+        arbol.extend(movimientos)
     return expandirNodos(profundidad - 1, nuevosNodos)
 
 def filtrarNodos(profundidad):
@@ -471,12 +473,17 @@ def filtrarNodos(profundidad):
             i.utilidad = i.funcionUtilidad()
             #print("Utilidad de los Nodos hoja:",i.utilidad)
             nodos.append(i)
-            camino=i.verCamino()
-            #print("Camino:",camino)
-
-            #print("Profundidad:",i.showProfundidad())
+            i.subirUtilidad()
+            # camino=i.verCamino()
+            # print("Camino:",camino)
+            print("Profundidad:",i.showProfundidad())
     #print("Nodos",nodos)
-    return nodos
+    # for i in nodos:
+    #     utilidad=i.showUtilidad()
+    #     print("UTILIDAD:",utilidad)
+    print("Nodo raiz utilidad:",arbol[0].showUtilidad())
+    print("ELECCION:",arbol[0].showEleccion().showCaballoB())
+    return arbol[0].showEleccion()
 
 # esta funcion recibe un arreglo con los nodos de maxima profundidad por turno y nodos meta y retorna aquel que tenga una mayor funcion de utilidad
 def nodo_maxima_utilidad(nodos):
