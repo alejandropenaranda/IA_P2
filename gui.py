@@ -1,7 +1,7 @@
 import pygame , sys
 from pygame.locals import *
 import math
-from main import (mapa,nodo_raiz,verFuturo)
+from main import (mapa,nodo_raiz,hijoMax,movimientoNegro)
 pygame.font.init()
 
 #se crea el tablero, nota si se actualiza el tablero se debe de referenciar otra vez ya que no esta en el while del refresco
@@ -57,7 +57,7 @@ m = 8
 #____________________________________________________________________________________________________________
 def iniciarGUI(nodo):
     #se inicia la aplicacion
-    
+    print("GUI:",hijoMax,movimientoNegro)
     pygame.init()
 
     #Configuracion para el texto
@@ -148,6 +148,7 @@ size = (aux1,aux2)
 screen = pygame.display.set_mode(size)
 
 iniciarGUI(nodo_raiz)
+
 
 
 #se planteo la conexion entre el main y la gui.py, ahora mismo solo se esta printeando el estado inicial, o sea el nodo_raiz cuando se tenga la solucion del problema en un array

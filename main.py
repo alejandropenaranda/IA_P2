@@ -9,6 +9,7 @@ ganador=None
 global dificultad
 dificultad = "amateur"
 
+
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero
 def find_initial_positions(board):
     puntos = []
@@ -423,6 +424,9 @@ def puede_moverseN(nodo):
     return nodos_posibles
 
 def verFuturo(dificultad, nodoRaiz):
+    global hijoMax, movimientoNegro
+    hijoMax = None
+    movimientoNegro = None
     nodoRaiz.padre = None
     profundidad = 0
 
@@ -458,6 +462,7 @@ def verFuturo(dificultad, nodoRaiz):
             hijoMax=hijos[i]
     print("ValorHijoMax:",valorHijoMax)
     print("HijoMax:",hijoMax)
+    print("Movimiento:",hijoMax.showCaballoB())
     movimientoNegro=puede_moverseN(hijoMax)
     print("movimientos posibles N:",movimientoNegro)
     return hijoMax, movimientoNegro
@@ -505,25 +510,8 @@ def expandirNodos(profundidad, nodos):
 
 
 
-def filtrarNodos(profundidad):
-    #nodos=[]
-    for i in arbol:
-        if i.esMeta() or i.showProfundidad()==profundidad:
-            #print("PROFUNDIDAD:",profundidad)
-            i.utilidad = i.funcionUtilidad()
-            #print("Utilidad de los Nodos hoja:",i.utilidad)
-            #nodos.append(i)
-            i.subirUtilidad()
-            # camino=i.verCamino()
-            # print("Camino:",camino)
-            #print("Profundidad:",i.showProfundidad())
-    #print("Nodos",nodos)
-    # for i in nodos:
-    #     utilidad=i.showUtilidad()
-    #     print("UTILIDAD:",utilidad)
-    print("Nodo raiz utilidad:",arbol[0].showUtilidad())
-    print("ELECCION:",arbol[0].showEleccion().showCaballoB())
-    return arbol[0].showEleccion()
+def filtrarNodos():
+    print("ABC:",hijoMax,movimientoNegro)
 
 # esta funcion recibe un arreglo con los nodos de maxima profundidad por turno y nodos meta y retorna aquel que tenga una mayor funcion de utilidad
 def nodo_maxima_utilidad(nodos):
