@@ -114,15 +114,15 @@ def iniciarGUI(nodo):
             
             if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN and puede_jugar==True:
                 global pos
                 mousePos = pygame.mouse.get_pos()
                 print('x: ',mousePos[0], 'y:',mousePos[1])
                 pos = checkCasilla(mousePos, movimientoNegro)
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN and puede_jugar==True:
                 if event.key == pygame.K_SPACE:
                     print('espacio')
-                    pintar_casillas_posibles(nodo,movimientoNegro)
+                    pintar_casillas_posibles(hijoMax,movimientoNegro)#HijoMAx debe ser el movimiento de la maquina
 
 def pintar_movimiento_maquina(nodo):
 
