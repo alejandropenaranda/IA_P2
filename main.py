@@ -6,7 +6,10 @@ import random
 nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[], tipo="MAX")
 arbol=[]
 ganador=None
-global dificultad
+global movimientoBlanco, movimientoNegro,hijoMax, dificultad
+movimientoBlanco = None
+hijoMax = None
+movimientoNegro = []
 dificultad = "amateur"
 
 
@@ -424,7 +427,6 @@ def puede_moverseN(nodo):
     return nodos_posibles
 
 def verFuturo(dificultad, nodoRaiz):
-    global movimientoBlanco, movimientoNegro
     movimientoBlanco = None
     hijoMax = None
     movimientoNegro = []
@@ -469,6 +471,7 @@ def verFuturo(dificultad, nodoRaiz):
     for i in nodosNegro:
         movimientoNegro.append(i.showCaballoN())
     print("movimientos posibles N:",movimientoNegro)
+    return movimientoNegro, hijoMax
 
 
     
@@ -499,14 +502,13 @@ def expandirNodos(profundidad, nodos):
         else:
             movimientos = puede_moverseN(nodo)
         if profundidad==1 or nodo.esMeta():
-            print("hola")
             nodo.utilidad = nodo.funcionUtilidad()
-            print("UTILIDAD:",nodo.showUtilidad())
+            #print("UTILIDAD:",nodo.showUtilidad())
         for i in movimientos:
             nodo.agregar_hijo(i)
             #print("CaballoB:",i.showCaballoB())
             #print("CaballoN:",i.showCaballoN())
-        print("----")
+        #print("----")
         nuevosNodos.extend(movimientos)
         arbol.extend(movimientos)
     return expandirNodos(profundidad - 1, nuevosNodos)
@@ -572,7 +574,7 @@ def verificarGanador(nodo):
             ganador="Empate"
 
 mapa = np.zeros((8,8))
-mapa.astype(str)
+#mapa.astype(int)
 randomize_board(8)
 asignar_coordenadas()
 print("este es el mapa",mapa)
