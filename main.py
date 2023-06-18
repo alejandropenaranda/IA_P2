@@ -578,6 +578,6 @@ asignar_coordenadas()
 print("este es el mapa",mapa)
 find_initial_positions(mapa)
 
-verFuturo(dificultad, nodo_raiz)
+#verFuturo(dificultad, nodo_raiz)
 #puede_moverseB(nodo_raiz)
 #puede_moverseN(nodo_raiz)

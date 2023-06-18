@@ -25,9 +25,9 @@ class Nodo:
             utilidades_validas = [utilidad for utilidad in utilidades_hijos if utilidad is not None]
             if utilidades_validas:
                 if self.profundidad % 2 == 0:  # Profundidad par
-                    self.utilidad = max(utilidades_validas)
+                    self.utilidad = max(utilidades_validas)#/(self.profundidad+1)
                 else:  # Profundidad impar
-                    self.utilidad = min(utilidades_validas)
+                    self.utilidad = min(utilidades_validas)#/(self.profundidad+1)
             return self.utilidad
 
     def cosa(self):

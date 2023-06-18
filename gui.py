@@ -1,7 +1,8 @@
 import pygame , sys
 from pygame.locals import *
 import math
-from main import (mapa,nodo_raiz,movimientoBlanco,movimientoNegro)
+from main import (dificultad,mapa,nodo_raiz)
+from main import verFuturo
 pygame.font.init()
 
 #se crea el tablero, nota si se actualiza el tablero se debe de referenciar otra vez ya que no esta en el while del refresco
@@ -57,7 +58,8 @@ m = 8
 #____________________________________________________________________________________________________________
 def iniciarGUI(nodo):
     #se inicia la aplicacion
-    print("GUI:",movimientoBlanco,movimientoNegro)
+    #print("GUI:",movimientoBlanco,movimientoNegro)
+    verFuturo(dificultad,nodo_raiz)
     pygame.init()
 
     #Configuracion para el texto
