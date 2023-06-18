@@ -1,11 +1,18 @@
 import pygame , sys
 from pygame.locals import *
 import math
-from main import (mapa,nodo_raiz,movimientoBlanco,movimientoNegro)
+from node import Nodo
+from main import (mapa,nodo_raiz,movimientoBlanco,movimientoNegro,hijoMax)
 pygame.font.init()
 
 #se crea el tablero, nota si se actualiza el tablero se debe de referenciar otra vez ya que no esta en el while del refresco
+
 def create_board (matriz,size):
+    pintar_cuadricula(matriz,size)
+    pintar_puntos(matriz,size)
+
+
+def pintar_cuadricula(matriz,size):
     i = -1 #desplazamiento en las columnas
     j = 0  #desplazamiento en las filas
     tamanho = len(matriz) #tamanho de la matriz
@@ -14,6 +21,20 @@ def create_board (matriz,size):
         i = i+1
         for cells in rows:
             screen.blit(roadImage, ((j*size)+aux,(i*size)+aux))
+            j = j+1
+            if (j==tamanho):
+                j = 0
+                break
+            if (i==tamanho):
+                break
+
+def pintar_puntos(matriz,size):
+    i = -1 #desplazamiento en las columnas
+    j = 0  #desplazamiento en las filas
+    tamanho = len(matriz) #tamanho de la matriz
+    for rows in matriz:
+        i = i+1
+        for cells in rows:
             if (cells == 1):
                 screen.blit(points1, ((j*size),(i*size)))
             elif (cells == 2):
@@ -34,6 +55,7 @@ def create_board (matriz,size):
                 break
             if (i==tamanho):
                 break
+
     # se pintan los 
     """
     aux1 = 1
@@ -83,11 +105,58 @@ def iniciarGUI(nodo):
                 global pos
                 mousePos = pygame.mouse.get_pos()
                 print('x: ',mousePos[0], 'y:',mousePos[1])
-                pos = checkCasilla(mousePos, [[1,1], [4,4]])
+                pos = checkCasilla(mousePos, movimientoNegro)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     print('espacio')
-                    pintar_casillas_posibles(nodo,[[1,1],[4,4]])
+                    pintar_casillas_posibles(nodo,movimientoNegro)
+
+def pintar_movimiento_maquina(nodo):
+
+    caballoN = nodo.showCaballoN()
+    caballoB = nodo.showCaballoB()
+
+    screen.fill(white)
+    create_board(modificar_mapa(mapa,nodo),imgsize)
+    screen.blit(blackHorse, ((caballoN[1]*imgsize),(caballoN[0]*imgsize)))
+    screen.blit(whiteHorse, ((caballoB[1]*imgsize),(caballoB[0]*imgsize)))
+
+
+def modificar_mapa(mapa, nodo):
+    i = -1 #desplazamiento en las columnas
+    tamanho = len(mapa)
+    tablero = mapa.copy()
+    print(tablero)
+    print(nodo.showPuntos())
+    for rows in mapa:
+        i = i+1
+        for cells in rows:
+            aux = [i,int(cells)]
+            # print('aqui aux : ',aux)
+            if (cells == 1):
+                if not aux in nodo.showPuntos():
+                    tablero[i][int(cells)] = 0
+            elif (cells == 2):
+                if not aux in nodo.showPuntos():
+                    tablero[i][int(cells)] = 0
+            elif (cells == 3):
+                if not aux in nodo.showPuntos():
+                    tablero[i][int(cells)] = 0
+            elif (cells == 4):
+                if not aux in nodo.showPuntos():
+                    tablero[i][int(cells)] = 0
+            elif (cells == 5):
+                if not aux in nodo.showPuntos():
+                    tablero[i][int(cells)] = 0
+            elif (cells == 6):
+                if not aux in nodo.showPuntos():
+                    tablero[i][int(cells)] = 0
+            elif (cells == 7):
+                if not aux in nodo.showPuntos():
+                    tablero[i][int(cells)] = 0
+            if (i==tamanho):
+                break
+    return tablero
 
 def pintar_juego(nodo):
     """
@@ -106,20 +175,30 @@ def pintar_juego(nodo):
     pintar_balls(bolas)
     pintar_seeds(semillas)
     """
+    screen.fill(white)
+    create_board(mapa,imgsize)
+    pintar_caballos(nodo,imgsize)
+    #screen.blit(blackHorse, ((caballoN[1]*imgsize),(caballoN[0]*imgsize)))
+    #screen.blit(whiteHorse, ((caballoB[1]*imgsize),(caballoB[0]*imgsize)))
+
+def pintar_caballos(nodo,size):
+
     caballoN = nodo.showCaballoN()
     caballoB = nodo.showCaballoB()
 
-    screen.fill(white)
-    create_board(mapa,imgsize)
-
-    screen.blit(blackHorse, ((caballoN[1]*imgsize),(caballoN[0]*imgsize)))
-    screen.blit(whiteHorse, ((caballoB[1]*imgsize),(caballoB[0]*imgsize)))
+    screen.blit(blackHorse, ((caballoN[1]*size),(caballoN[0]*size)))
+    screen.blit(whiteHorse, ((caballoB[1]*size),(caballoB[0]*size)))
 
 def pintar_casillas_posibles(nodo,casillas):
+    board = modificar_mapa(mapa, nodo)
+    print('tablero:', board)
+    pintar_cuadricula(board,imgsize)
     for casilla in casillas:
         screen.blit(tileImage, ((casilla[1]*imgsize),(casilla[0]*imgsize)))
-        pygame.display.flip()
-        pygame.display.update()
+    pintar_puntos(board,imgsize)    
+    pintar_caballos(nodo,imgsize) 
+    pygame.display.flip()
+    pygame.display.update()
 
 def checkCasilla(posicion, posibles_movimientos):
     index = 0
@@ -127,8 +206,8 @@ def checkCasilla(posicion, posibles_movimientos):
     for i in range(len(posibles_movimientos)):
        coordx = posibles_movimientos[i][0]
        coordy = posibles_movimientos[i][1]
-       if posicion[0] > coordx*imgsize and posicion[0] < (coordx+1)*imgsize:
-        if posicion[1] > coordy*imgsize and posicion[1] < (coordy+1)*imgsize:
+       if posicion[1] > coordx*imgsize and posicion[1] < (coordx+1)*imgsize:
+        if posicion[0] > coordy*imgsize and posicion[0] < (coordy+1)*imgsize:
             index = i
             print('casilla correcta pulsada')
             pintarCaballoN(posibles_movimientos[index])

@@ -424,7 +424,7 @@ def puede_moverseN(nodo):
     return nodos_posibles
 
 def verFuturo(dificultad, nodoRaiz):
-    global movimientoBlanco, movimientoNegro
+    global movimientoBlanco, movimientoNegro,hijoMax
     movimientoBlanco = None
     hijoMax = None
     movimientoNegro = []
