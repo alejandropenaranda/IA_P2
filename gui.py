@@ -2,7 +2,7 @@ import pygame , sys
 from pygame.locals import *
 import math, time
 from main import (dificultad,mapa,nodo_raiz)
-from main import verFuturo
+from main import verFuturo, verificarGanador
 from node import Nodo
 pygame.font.init()
 
@@ -113,9 +113,9 @@ def iniciarGUI(nodo):
                 #pintar_juego(nodo)
                 pintar_juego(hijoMax)
                 pintar_casillas_posibles(hijoMax,movimientoNegro)
-                auxiliar = auxiliar+1
                 puede_jugar=True
             t1=t0
+        finalizar_juego(hijoMax)
         for event in pygame.event.get():
             
             if event.type == pygame.QUIT:
@@ -132,15 +132,17 @@ def iniciarGUI(nodo):
                     print("------------nodoParaSanta----------:",nodosNegro[pos].showCaballoN())
                     puede_jugar=False
                     movimientoNegro, hijoMax, nodosNegro = verFuturo(dificultad,movimientoUsuario)
-                    auxiliar=2
-                    tiempo = math.floor(pygame.time.get_ticks()/1000)
-                    print("TIEMPO:",tiempo)
-                else:
-                    print("NELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
-            elif event.type == pygame.KEYDOWN and puede_jugar==True:
-                if event.key == pygame.K_SPACE:
-                    print('espacio')
-                    pintar_casillas_posibles(hijoMax,movimientoNegro)#HijoMAx debe ser el movimiento de la maquina
+                    finalizar_juego(movimientoUsuario)
+
+def finalizar_juego(nodo):
+    ganador= verificarGanador(nodo)
+    if ganador=="Blanco":
+        sys.exit()
+    elif ganador=="Negro":
+        sys.exit()
+    elif ganador=="Empate":
+        sys.exit()
+
 
 def pintar_movimiento_maquina(nodo):
 
@@ -162,13 +164,13 @@ def modificar_mapa(mapa, nodo):
         i = i+1
         for j in range(len(mapa)):
             cells = int(rows[j])
-            print("cells:",j)
-            print("INTcells:",int(j))
-            print("rows:",rows)
+            #print("cells:",j)
+            #print("INTcells:",int(j))
+            #print("rows:",rows)
             aux = [i,int(j)]
-            print("AUX:",aux)
-            print("XD",rows[j])
-            print("---------")
+            #print("AUX:",aux)
+            #print("XD",rows[j])
+            #print("---------")
             # print('aqui aux : ',aux)
             if (cells == 1):
                 if not aux in nodo.showPuntos():

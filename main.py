@@ -565,6 +565,7 @@ def asignar_coordenadas():
 
 def verificarGanador(nodo):
     global ganador
+    ganador = "Ninguno"
     if(nodo.esMeta()):
         if(nodo.showPuntuacionB()>nodo.showPuntuacionN()):
             ganador ="Blanco"
@@ -572,6 +573,7 @@ def verificarGanador(nodo):
             ganador="Negro"
         else:
             ganador="Empate"
+    return ganador
 
 mapa = np.zeros((8,8))
 #mapa.astype(int)
