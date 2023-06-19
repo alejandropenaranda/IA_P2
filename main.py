@@ -10,7 +10,7 @@ global movimientoBlanco, movimientoNegro,hijoMax, dificultad
 movimientoBlanco = None
 hijoMax = None
 movimientoNegro = []
-dificultad = "experto"
+dificultad = "amateur" # principiante, amateur, experto
 
 
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero

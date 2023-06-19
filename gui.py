@@ -127,6 +127,8 @@ def iniciarGUI(nodo):
                 print('x: ',mousePos[0], 'y:',mousePos[1])
                 pos,acierto = checkCasilla(mousePos, movimientoNegro)
                 if acierto:
+                    for i in range(len(nodosNegro)):
+                        print('AQUI: ', nodosNegro[i].showCaballoB())
                     movimientoUsuario = nodosNegro[pos]
                     pintar_juego(movimientoUsuario)
                     print("------------nodoParaSanta----------:",nodosNegro[pos].showCaballoN())
@@ -137,14 +139,45 @@ def iniciarGUI(nodo):
 def finalizar_juego(nodo):
     ganador= verificarGanador(nodo)
     if ganador=="Blanco":
-        sys.exit()
+        print('gano el blanco')
+        pintar_estadisticas(nodo, 1)
+        #sys.exit()
     elif ganador=="Negro":
-        sys.exit()
+        print('gano el negro')
+        pintar_estadisticas(nodo, 2)
+        #sys.exit()
     elif ganador=="Empate":
-        sys.exit()
+        print('empate')
+        pintar_estadisticas(nodo, 3)
+        #sys.exit()
+
+def pintar_estadisticas(nodo,case):
+    screen.fill(white)
+    puntosN = nodo.showPuntuacionN()
+    puntosB = nodo.showPuntuacionB()
+    text2 = fuente2.render('La dificultad de la maquina fue '+ dificultad, True, black)
+
+    P1 = fuente2.render('Puntuacion final del P1: '+ str(puntosB), True, black)
+    P2 = fuente2.render('Puntuacion final del P2: '+ str(puntosN), True, black)
+    if (case == 1):
+        text = fuente2.render('Ha ganado el jugador P1', True, black)
+    elif (case == 2):
+        text = fuente2.render('Ha ganado el jugador P2', True, black)
+    elif (case == 3):
+        text = fuente2.render('El juego ha terminado en empate', True, black)
+    
+    screen.blit(text, (15, 50))
+    screen.blit(text2, (15, 100))
+    screen.blit(P1,(15,150))
+    screen.blit(P2,(15,200))
+
+    pygame.display.flip()
+    pygame.display.update()
+
 
 
 def pintar_movimiento_maquina(nodo):
+
 
     caballoN = nodo.showCaballoN()
     caballoB = nodo.showCaballoB()
