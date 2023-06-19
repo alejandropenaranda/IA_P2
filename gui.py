@@ -139,15 +139,15 @@ def iniciarGUI(nodo):
 def finalizar_juego(nodo):
     ganador= verificarGanador(nodo)
     if ganador=="Blanco":
-        print('gano el blanco')
+        #print('gano el blanco')
         pintar_estadisticas(nodo, 1)
         #sys.exit()
     elif ganador=="Negro":
-        print('gano el negro')
+        #print('gano el negro')
         pintar_estadisticas(nodo, 2)
         #sys.exit()
     elif ganador=="Empate":
-        print('empate')
+        #print('empate')
         pintar_estadisticas(nodo, 3)
         #sys.exit()
 
