@@ -10,7 +10,7 @@ global movimientoBlanco, movimientoNegro,hijoMax, dificultad
 movimientoBlanco = None
 hijoMax = None
 movimientoNegro = []
-dificultad = "amateur"
+dificultad = "experto"
 
 
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero
@@ -471,7 +471,7 @@ def verFuturo(dificultad, nodoRaiz):
     for i in nodosNegro:
         movimientoNegro.append(i.showCaballoN())
     print("movimientos posibles N:",movimientoNegro)
-    return movimientoNegro, hijoMax
+    return movimientoNegro, hijoMax, nodosNegro
 
 
     

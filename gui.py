@@ -80,11 +80,16 @@ m = 8
 #____________________________________________________________________________________________________________
 def iniciarGUI(nodo):
     print("_____________________PuntosINICIO:",nodo_raiz.showPuntos())
-    global puede_jugar
+    global puede_jugar, hijoMax, movimientoNegro, nodosNegro, auxiliar, tiempo
+    tiempo=0
+    auxiliar=0
+    hijoMax=None
+    movimientoNegro=None
+    nodosNegro=None
     puede_jugar=False
     #se inicia la aplicacion
     #print("GUI:",movimientoBlanco,movimientoNegro)
-    movimientoNegro, hijoMax = verFuturo(dificultad,nodo_raiz)
+    movimientoNegro, hijoMax, nodosNegro = verFuturo(dificultad,nodo_raiz)
     
 
     
@@ -98,27 +103,40 @@ def iniciarGUI(nodo):
     #while para la logica o los eventos
     #while auxiliar < len(nodos_lista):
     aux = True
+    t0 = time.time()
     while aux:
-        tiempo = math.floor(pygame.time.get_ticks()/1000)
-
-        if tiempo == auxiliar:
+        t1=time.time()
+        #tiempo = math.floor(pygame.time.get_ticks()/1000)
+        dt=t1-t0
+        if dt>2:
             if puede_jugar==False:
                 #pintar_juego(nodo)
                 pintar_juego(hijoMax)
+                pintar_casillas_posibles(hijoMax,movimientoNegro)
                 auxiliar = auxiliar+1
                 puede_jugar=True
-           
-           
-        
+            t1=t0
         for event in pygame.event.get():
             
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN and puede_jugar==True:
-                global pos
+                global pos, movimientoUsuario
+                movimientoUsuario = None
                 mousePos = pygame.mouse.get_pos()
                 print('x: ',mousePos[0], 'y:',mousePos[1])
-                pos = checkCasilla(mousePos, movimientoNegro)
+                pos,acierto = checkCasilla(mousePos, movimientoNegro)
+                if acierto:
+                    movimientoUsuario = nodosNegro[pos]
+                    pintar_juego(movimientoUsuario)
+                    print("------------nodoParaSanta----------:",nodosNegro[pos].showCaballoN())
+                    puede_jugar=False
+                    movimientoNegro, hijoMax, nodosNegro = verFuturo(dificultad,movimientoUsuario)
+                    auxiliar=2
+                    tiempo = math.floor(pygame.time.get_ticks()/1000)
+                    print("TIEMPO:",tiempo)
+                else:
+                    print("NELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
             elif event.type == pygame.KEYDOWN and puede_jugar==True:
                 if event.key == pygame.K_SPACE:
                     print('espacio')
@@ -142,34 +160,37 @@ def modificar_mapa(mapa, nodo):
     tablero = mapa.copy()
     for rows in mapa:
         i = i+1
-        for cells in range(len(mapa)):
-            print("cells:",cells)
-            #print("INTcells:",int(cells))
+        for j in range(len(mapa)):
+            cells = int(rows[j])
+            print("cells:",j)
+            print("INTcells:",int(j))
             print("rows:",rows)
-            aux = [i,int(cells)]
-            #print("AUX:",aux)
+            aux = [i,int(j)]
+            print("AUX:",aux)
+            print("XD",rows[j])
+            print("---------")
             # print('aqui aux : ',aux)
             if (cells == 1):
                 if not aux in nodo.showPuntos():
-                    tablero[i][int(cells)] = 0
+                    tablero[i][int(j)] = 0
             elif (cells == 2):
                 if not aux in nodo.showPuntos():
-                    tablero[i][int(cells)] = 0
+                    tablero[i][int(j)] = 0
             elif (cells == 3):
                 if not aux in nodo.showPuntos():
-                    tablero[i][int(cells)] = 0
+                    tablero[i][int(j)] = 0
             elif (cells == 4):
                 if not aux in nodo.showPuntos():
-                    tablero[i][int(cells)] = 0
+                    tablero[i][int(j)] = 0
             elif (cells == 5):
                 if not aux in nodo.showPuntos():
-                    tablero[i][int(cells)] = 0
+                    tablero[i][int(j)] = 0
             elif (cells == 6):
                 if not aux in nodo.showPuntos():
-                    tablero[i][int(cells)] = 0
+                    tablero[i][int(j)] = 0
             elif (cells == 7):
                 if not aux in nodo.showPuntos():
-                    tablero[i][int(cells)] = 0
+                    tablero[i][int(j)] = 0
             if (i==tamanho):
                 break
     return tablero
@@ -203,18 +224,25 @@ def pintar_casillas_posibles(nodo,casillas):
     pygame.display.flip()
     pygame.display.update()
 
+#def actualizar_casillas_posibles(nodo, casillas):
+    
+
+
 def checkCasilla(posicion, posibles_movimientos):
     index = 0
+    acierto=False
 
     for i in range(len(posibles_movimientos)):
-       coordx = posibles_movimientos[i][0]
-       coordy = posibles_movimientos[i][1]
-       if posicion[1] > coordx*imgsize and posicion[1] < (coordx+1)*imgsize:
-        if posicion[0] > coordy*imgsize and posicion[0] < (coordy+1)*imgsize:
-            index = i
-            print('casilla correcta pulsada')
-            pintarCaballoN(posibles_movimientos[index])
-            return index
+        coordx = posibles_movimientos[i][0]
+        coordy = posibles_movimientos[i][1]
+        if posicion[1] > coordx*imgsize and posicion[1] < (coordx+1)*imgsize:
+            if posicion[0] > coordy*imgsize and posicion[0] < (coordy+1)*imgsize:
+                index = i
+                print('casilla correcta pulsada')
+                pintarCaballoN(posibles_movimientos[index])
+                acierto=True
+                break
+    return index,acierto
             
 
 
