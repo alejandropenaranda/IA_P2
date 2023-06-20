@@ -1,7 +1,8 @@
 import pygame , sys
 from pygame.locals import *
 import math, time
-from main import (dificultad,mapa,nodo_raiz)
+from pregunta import dificultad
+from main import (mapa,nodo_raiz)
 from main import verFuturo, verificarGanador
 from node import Nodo
 pygame.font.init()
@@ -155,7 +156,7 @@ def pintar_estadisticas(nodo,case):
     screen.fill(white)
     puntosN = nodo.showPuntuacionN()
     puntosB = nodo.showPuntuacionB()
-    text2 = fuente2.render('La dificultad de la maquina fue '+ dificultad, True, black)
+    text2 = fuente2.render('La dificultad de la maquina fue: '+ dificultad, True, black)
 
     P1 = fuente2.render('Puntuacion final del P1: '+ str(puntosB), True, black)
     P2 = fuente2.render('Puntuacion final del P2: '+ str(puntosN), True, black)
@@ -166,10 +167,10 @@ def pintar_estadisticas(nodo,case):
     elif (case == 3):
         text = fuente2.render('El juego ha terminado en empate', True, black)
     
-    screen.blit(text, (15, 50))
-    screen.blit(text2, (15, 100))
-    screen.blit(P1,(15,150))
-    screen.blit(P2,(15,200))
+    screen.blit(text, (10, 50))
+    screen.blit(text2, (10, 100))
+    screen.blit(P1,(10,150))
+    screen.blit(P2,(10,200))
 
     pygame.display.flip()
     pygame.display.update()
@@ -304,10 +305,9 @@ blue = (0,0,255)
 green = (0,255,0)
 white = (255,255,255)
     
-fuente = pygame.font.SysFont('Segoe UI',28)
+
 font = pygame.font.SysFont('arialblack',30)
-fuente2 = pygame.font.SysFont('Segoe UI', 40)
-texto = fuente.render("prueba de texto",True,black)
+fuente2 = pygame.font.SysFont('Segoe UI', 38)
 
 #se carga la imagen del raton y demas
 imgsize = 90

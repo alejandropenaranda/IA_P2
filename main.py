@@ -1,16 +1,15 @@
 from node import Nodo
 import numpy as np
 import random
-
 # #__________________________________________definicion de variables globales
 nodo_raiz= Nodo(puntuacionB=0,puntuacionN=0, caballoB=[], caballoN=[], puntos=[], tipo="MAX")
 arbol=[]
 ganador=None
-global movimientoBlanco, movimientoNegro,hijoMax, dificultad
+global movimientoBlanco, movimientoNegro,hijoMax
 movimientoBlanco = None
 hijoMax = None
 movimientoNegro = []
-dificultad = "amateur" # principiante, amateur, experto
+#dificultad = "amateur" # principiante, amateur, experto
 
 
 # #funcion que encuentra la posicion inicial de todos los elementos del tablero
