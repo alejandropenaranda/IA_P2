@@ -5,7 +5,7 @@ ventana = tk.Tk()
 ventana.geometry("400x130")
 ventana.resizable(False, False)
 ventana.eval('tk::PlaceWindow . center')
-ventana.title("Dificultad de Juego")
+ventana.title("Smart Horses (Elección de dificultad)")
 
 # Crear una etiqueta con el texto"
 etiqueta = tk.Label(ventana, text="Indique la dificultad en la que desea jugar")

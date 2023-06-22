@@ -332,6 +332,7 @@ size = (aux1,aux2)
 
 
 #definicion de la GUI
+pygame.display.set_caption('Smart Horses')
 screen = pygame.display.set_mode(size)
 
 iniciarGUI(nodo_raiz)
