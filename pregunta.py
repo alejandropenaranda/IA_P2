@@ -26,7 +26,6 @@ radio3.pack()
 def enviar():
             global dificultad
             dificultad = var.get()
-            print(dificultad)
             if dificultad != 'principiante' and dificultad != 'amateur' and dificultad != 'experto':
                 sys.exit()
             ventana.destroy()

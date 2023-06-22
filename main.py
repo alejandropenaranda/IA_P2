@@ -351,10 +351,7 @@ def verFuturo(dificultad, nodoRaiz):
         profundidad = 6
     
     nodos=expandirNodos(profundidad,[nodoRaiz])
-    #print("CaballoB Raiz:",nodos[0].recorrer_arbol_arriba()[-1].showCaballoB())
-    #print("CaballoN Raiz:",nodos[0].recorrer_arbol_arriba()[-1].showCaballoN())
     nodos[0].recorrer_arbol_arriba()[-1].calcular_utilidad()
-    #print("Utilidad Raiz:",nodos[0].recorrer_arbol_arriba()[-1].calcular_utilidad())
     arrayB=[]
     arrayN=[]
     utilidades=[]
@@ -365,21 +362,14 @@ def verFuturo(dificultad, nodoRaiz):
         arrayB.append(i.showCaballoB())
         arrayN.append(i.showCaballoN())
         utilidades.append(i.showUtilidad())
-    #print("posiblesB",arrayB)
-    #print("posiblesN",arrayN)
-    #print("Utilidades",utilidades)
     for i in range(len(hijos)):
         if hijos[i].showUtilidad()>valorHijoMax:
             valorHijoMax=hijos[i].showUtilidad()
             hijoMax=hijos[i]
-    #print("ValorHijoMax:",valorHijoMax)
-    #print("HijoMax:",hijoMax)
     movimientoBlanco=hijoMax.showCaballoB()
-    #print("movimiento B:",movimientoBlanco)
     nodosNegro=puede_moverseN(hijoMax)
     for i in nodosNegro:
         movimientoNegro.append(i.showCaballoN())
-    #print("movimientos posibles N:",movimientoNegro)
     return movimientoNegro, hijoMax, nodosNegro
 
 def expandirNodos(profundidad, nodos):
@@ -407,8 +397,6 @@ def nodo_maxima_utilidad(nodos):
         if nodos[i].funcionUtilidad() > mayor:
             index = i
             mayor = nodos[i].funcionUtilidad()
-    print("Nodo de mayor Utilidad:",nodos[index])
-    print("Utilidad:",nodos[index].showUtilidad())
     return nodos[index]
 
 def randomize_board(size):
@@ -432,7 +420,6 @@ def randomize_board(size):
                 caballoBlanco.append(new_tuple)
             elif len(caballoNegro) != 1:
                 caballoNegro.append(new_tuple)
-    print(puntos,caballoBlanco,caballoNegro)
 
 def asignar_coordenadas():
     aux = 1
@@ -460,5 +447,4 @@ mapa = np.zeros((8,8))
 #mapa.astype(int)
 randomize_board(8)
 asignar_coordenadas()
-print("este es el mapa",mapa)
 find_initial_positions(mapa)

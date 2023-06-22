@@ -11,7 +11,6 @@ pygame.font.init()
 
 
 def create_board (matriz,size):
-    print("MATRIZ:",matriz)
     pintar_cuadricula(matriz,size)
     pintar_puntos(matriz,size)
 
@@ -80,7 +79,6 @@ m = 8
 #-----------------#
 #____________________________________________________________________________________________________________
 def iniciarGUI(nodo):
-    print("_____________________PuntosINICIO:",nodo_raiz.showPuntos())
     global puede_jugar, hijoMax, movimientoNegro, nodosNegro, auxiliar, tiempo
     tiempo=0
     auxiliar=0
@@ -89,12 +87,8 @@ def iniciarGUI(nodo):
     nodosNegro=None
     puede_jugar=False
     #se inicia la aplicacion
-    #print("GUI:",movimientoBlanco,movimientoNegro)
     movimientoNegro, hijoMax, nodosNegro = verFuturo(dificultad,nodo_raiz)
     
-
-    
-    print("GUI NEGRO:",movimientoNegro)
     pygame.init()
 
     #Configuracion para el texto
@@ -125,14 +119,10 @@ def iniciarGUI(nodo):
                 global pos, movimientoUsuario
                 movimientoUsuario = None
                 mousePos = pygame.mouse.get_pos()
-                print('x: ',mousePos[0], 'y:',mousePos[1])
                 pos,acierto = checkCasilla(mousePos, movimientoNegro)
                 if acierto:
-                    for i in range(len(nodosNegro)):
-                        print('AQUI: ', nodosNegro[i].showCaballoB())
                     movimientoUsuario = nodosNegro[pos]
                     pintar_juego(movimientoUsuario)
-                    print("------------nodoParaSanta----------:",nodosNegro[pos].showCaballoN())
                     puede_jugar=False
                     movimientoNegro, hijoMax, nodosNegro = verFuturo(dificultad,movimientoUsuario)
                     finalizar_juego(movimientoUsuario)
@@ -140,17 +130,11 @@ def iniciarGUI(nodo):
 def finalizar_juego(nodo):
     ganador= verificarGanador(nodo)
     if ganador=="Blanco":
-        #print('gano el blanco')
         pintar_estadisticas(nodo, 1)
-        #sys.exit()
     elif ganador=="Negro":
-        #print('gano el negro')
         pintar_estadisticas(nodo, 2)
-        #sys.exit()
     elif ganador=="Empate":
-        #print('empate')
         pintar_estadisticas(nodo, 3)
-        #sys.exit()
 
 def pintar_estadisticas(nodo,case):
     screen.fill(white)
@@ -190,7 +174,6 @@ def pintar_movimiento_maquina(nodo):
 
 
 def modificar_mapa(mapa, nodo):
-    print("Puntos:",nodo.showPuntos())
     i = -1 #desplazamiento en las columnas
     tamanho = len(mapa)
     tablero = mapa.copy()
@@ -198,14 +181,7 @@ def modificar_mapa(mapa, nodo):
         i = i+1
         for j in range(len(mapa)):
             cells = int(rows[j])
-            #print("cells:",j)
-            #print("INTcells:",int(j))
-            #print("rows:",rows)
             aux = [i,int(j)]
-            #print("AUX:",aux)
-            #print("XD",rows[j])
-            #print("---------")
-            # print('aqui aux : ',aux)
             if (cells == 1):
                 if not aux in nodo.showPuntos():
                     tablero[i][int(j)] = 0
@@ -251,7 +227,6 @@ def pintar_caballos(nodo,size):
 
 def pintar_casillas_posibles(nodo,casillas):
     board = modificar_mapa(mapa, nodo)
-    print('tablero:', board)
     pintar_cuadricula(board,imgsize)
     for casilla in casillas:
         screen.blit(tileImage, ((casilla[1]*imgsize),(casilla[0]*imgsize)))
@@ -274,7 +249,6 @@ def checkCasilla(posicion, posibles_movimientos):
         if posicion[1] > coordx*imgsize and posicion[1] < (coordx+1)*imgsize:
             if posicion[0] > coordy*imgsize and posicion[0] < (coordy+1)*imgsize:
                 index = i
-                print('casilla correcta pulsada')
                 pintarCaballoN(posibles_movimientos[index])
                 acierto=True
                 break
@@ -337,8 +311,3 @@ screen = pygame.display.set_mode(size)
 
 iniciarGUI(nodo_raiz)
 
-
-
-
-#se planteo la conexion entre el main y la gui.py, ahora mismo solo se esta printeando el estado inicial, o sea el nodo_raiz cuando se tenga la solucion del problema en un array
-#verificar con el proyecto anterior los cambios puntuales que se deben de hacer para que la gui se vaya actualizando
