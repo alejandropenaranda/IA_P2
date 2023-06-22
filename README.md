@@ -1,11 +1,19 @@
-# IA_P2
-
-# Extraer la logica que ya tenemos planteada para el algoritmo de profundidad
-# (Hecho)Añadir el archivo nodo.py y añadirle los valores como el de su valor min o max, si es un nodo min o max, etc
-# plantear la heuristica (cantidad de fichas que se pueden agarrar o sea utilizando los 3 movimientos del caballo)
-# Realizar las funciones que calculan el valor que se le debe ingresar a el nodo min o max, (tiene un valor? le ingreso el que se calculo nuevo o el que ya estaba?)
-# (Hecho)Modificar la funcion que permite calcular los posibles movimientos
-# (Hecho)Funcion que verifica si el caballo esta en un punto cuando se mueve y tomar el punto 
-# (Hecho)Funcion de verificar quien gano
-# El algoritmo se vuelve a ejecutar en cada jugada o sea que debemos ingresarle un nodo raiz e irselo pasando al algoritmo cada vez que se llame, el algoritmo se ejecuta hasta que se vacia la cola
-# Tener en cuenta la profundidad del arbol (ingresar modo facil, modo mediano modo dificil)
+# Proyecto 2 - Inteligencia Artificial - Smart Horses
+***
+## Integrantes: 
+  * Alejandro Peñaranda Agudelo - 1941008
+  * Alejandro Escobar Tafurt - 1941378
+  * Juan Camilo Santa Gomez - 1943214
+***
+## Requerimientos
+Para ejecutar este proyecto es necesario tener instalado lo siguiente:
+  * Python 3.10 (recomendable - puede funcionar con otras versiones)
+  * pygame 2.3.0 (recomendable)
+  * numpy 1.24.3 (recomendable)
+***
+## Ejecución
+El proyecto se ejecuta con el siguiente comando estando en la carpeta del proyecto:
+```
+$ python gui.py
+```
+***
